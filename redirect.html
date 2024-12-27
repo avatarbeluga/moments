@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="2;url=https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view">
+    <title>Redirecting...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .message {
+            text-align: center;
+        }
+        .message h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .message p {
+            font-size: 18px;
+            color: #555;
+        }
+        .countdown {
+            font-weight: bold;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Redirecting...</h1>
+        <p>You will be redirected to the document in <span class="countdown">2</span> seconds.</p>
+        <p>If the redirection does not happen, <a href="https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view">click here</a>.</p>
+    </div>
+
+    <script>
+        // Countdown logic
+        let countdown = 2;
+        const countdownElement = document.querySelector('.countdown');
+
+        const interval = setInterval(() => {
+            countdown -= 1;
+            countdownElement.textContent = countdown;
+
+            if (countdown <= 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
