@@ -3,42 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Password Protected Page</title>
-    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Center and style the page */
+        /* Modern and professional login page */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #eef2f3;
-            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #0d1b2a, #2a3d4c); /* Dark blue gradient */
+            font-family: 'Roboto', Arial, sans-serif;
         }
         .container {
             text-align: center;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.85); /* Light background for transparency */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            width: 350px;
         }
-        input[type="password"] {
-            padding: 10px;
-            width: 80%;
-            margin: 20px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .container h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .container p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
             font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="password"]:focus, input[type="text"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        .input-group .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+            font-size: 18px;
         }
         button {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
             background-color: #0056b3;
@@ -53,10 +87,12 @@
 <body>
 
     <div class="container">
-        <h1>Password Protected Access</h1>
-        <p>Please enter the password to proceed:</p>
-        <input type="password" id="password" placeholder="Enter password" />
-        <br />
+        <h1>Password Protected Access</h1> <!-- Keeping the heading as it is -->
+        <p>Please enter your password to continue:</p>
+        <div class="input-group">
+            <input type="password" id="password" placeholder="Enter password" />
+            <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
+        </div>
         <button onclick="checkPassword()">Submit</button>
         <div class="error" id="error-message"></div>
     </div>
@@ -64,32 +100,89 @@
     <!-- Import CryptoJS Library for SHA-256 Hashing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
-        // Precomputed SHA-256 hash for the password "securepassword"
-        const correctHash = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; 
-        // Replace "securepassword" with your password, and update the hash.
+        let attempts = 0;
+        const maxAttempts = 3;
+        const lockoutTime = 15000; // Lockout time in milliseconds (15 seconds)
+        let lockoutTimer;
+        let countdownTimer;
+        let remainingTime = lockoutTime / 1000; // Convert to seconds
 
-        const localFilePath = "redirect.html"; // Path to your local file
+        const correctHash = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; 
+       const localFilePath = "redirect.html"; // Path to your local file
 
         function checkPassword() {
             const enteredPassword = document.getElementById("password").value;
             const enteredHash = CryptoJS.SHA256(enteredPassword).toString();
 
+            if (attempts >= maxAttempts) {
+                document.getElementById("error-message").innerText = `Too many attempts. Please wait ${remainingTime} seconds.`;
+                return;
+            }
+
             if (enteredHash === correctHash) {
-                window.location.href = localFilePath; // Redirect to the local HTML file
+                window.location.href = driveLink;
             } else {
-                document.getElementById("error-message").innerText = "Incorrect password. Please try again.";
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    document.getElementById("error-message").innerText = `Too many incorrect attempts. Please wait ${remainingTime} seconds.`;
+                    startCountdown();
+                } else {
+                    const attemptsLeft = maxAttempts - attempts;
+                    document.getElementById("error-message").innerText = `Incorrect password. You have ${attemptsLeft} attempt(s) left.`;
+                }
+            }
+        }
+
+        function startCountdown() {
+            // Disable the input and button during the countdown
+            document.getElementById("password").disabled = true;
+            document.querySelector("button").disabled = true;
+
+            countdownTimer = setInterval(function() {
+                remainingTime--;
+                document.getElementById("error-message").innerText = `Too many incorrect attempts. Please wait ${remainingTime} seconds.`;
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdownTimer);
+                    resetAttempts();
+                }
+            }, 1000);
+        }
+
+        function resetAttempts() {
+            attempts = 0;
+            remainingTime = lockoutTime / 1000;
+            document.getElementById("error-message").innerText = "Please enter the correct password now.";  // New message
+            // Enable the input and button
+            document.getElementById("password").disabled = false;
+            document.querySelector("button").disabled = false;
+        }
+
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const toggleIcon = document.querySelector('.toggle-password');
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = "password";
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
         }
     </script>
 
     <script>
-    document.addEventListener("contextmenu", (e) => e.preventDefault()); // Disable right-click
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "F12" || (e.ctrlKey && (e.key === "U" || e.key === "Shift"))) {
-            e.preventDefault(); // Block F12, Ctrl+U, and Ctrl+Shift shortcuts
-        }
-    });
-</script>
+        // Disable right-click and developer tools
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "F12" || (e.ctrlKey && (e.key === "U" || e.key === "Shift"))) {
+                e.preventDefault();
+            }
+        });
+    </script>
 
 </body>
 </html>
