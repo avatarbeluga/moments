@@ -110,8 +110,8 @@
         // Correct password hash (replace this with the hash of your actual password)
         const correctHash = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; 
 
-        // The URL for the file you want to redirect to
-        const redirectLink = "https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view"; 
+        // Path to your local file (redirect.html)
+        const localFilePath = "redirect.html"; 
 
         function checkPassword() {
             const enteredPassword = document.getElementById("password").value;
@@ -123,7 +123,7 @@
             }
 
             if (enteredHash === correctHash) {
-                window.location.href = redirectLink; // Redirect to the Google Drive link
+                window.location.href = localFilePath; // Redirect to local file (redirect.html)
             } else {
                 attempts++;
                 if (attempts >= maxAttempts) {
