@@ -12,7 +12,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-CND9V00QT4');
     </script>
 
@@ -64,6 +63,37 @@
                 clearInterval(interval);
             }
         }, 1000);
+
+        // Device, Browser, OS, and Time of Access
+        function trackAccess() {
+            const device = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+            const browser = navigator.userAgent;
+            const os = navigator.platform;
+            const time = new Date().toISOString(); // Current time in ISO format
+            const timezoneOffset = new Date().getTimezoneOffset(); // Timezone offset
+
+            // Send data to Google Analytics
+            gtag('event', 'file_open', {
+                'event_category': 'Document Access',
+                'event_label': 'PDF Opened',
+                'value': 1,
+                'device': device,
+                'browser': browser,
+                'os': os,
+                'access_time': time,
+                'timezone_offset': timezoneOffset
+            });
+
+            // Log data (Optional: useful for debugging)
+            console.log("Device: ", device);
+            console.log("Browser Info: ", browser);
+            console.log("Operating System: ", os);
+            console.log("Access Time: ", time);
+            console.log("Timezone Offset: ", timezoneOffset);
+        }
+
+        // Track the user's access right before redirection
+        trackAccess();
     </script>
 </body>
 </html>
