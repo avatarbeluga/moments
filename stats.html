@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smooth Scrolling Stats</title>
-    <!-- Google tag (gtag.js) -->
+        <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YQYKRJC7G"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -64,9 +64,13 @@
             padding: 15px 20px;
             font-size: 20px;
             color: #333; /* Dark text for readability */
-            font-weight: 600;
+            font-weight: 500;
             border-bottom: 1px solid #ddd; /* Subtle divider between items */
             text-align: center;
+        }
+
+        .stats-container p strong {
+            font-weight: bold;
         }
 
         /* Media Query for Mobile Screens */
@@ -88,24 +92,29 @@
 </head>
 <body>
 
-    <div class="title">Your STATS</div>
+    <div class="title">✨ Your STATS ✨</div>
 
     <div class="stats-container" id="statsContainer">
         <div class="stats-content" id="statsContent">
-            <p>Favorite Food: Pasta,Pav Bhaji...</p>
-            <p>Your One of the Wish: To Watch YJHD Probaly when it's re-released(TBH i have never watched this so no idea on the plot)</p>
-            <p>Favorite Color:🤔 </p>
-            <p>Favorite Animal: Dur se he aache lagte hai</p>
-            <p>Favorite Movie: Not Sure, But you Like AVATAR too</p>
-            <p>Cooking: You know some, you're learning some</p>
-            <p>Dream: To Live your Own Live</p>
-            <p>Your Goal: To Get a Good appraisal this time </p>
-            <p>Friends: Many</p>
-            <p>Best Friends: Few</p>
-            <p>Good Male Best Friends: Few (May be 2 IDK my existance here so haven't counted)</p>
-            <p>Favorite Sport: 🤔</p>
-            <p>Favorite Book: 🤔</p>
-
+            <p><strong>Favorite Food:</strong> 🍝 Pasta, Pav Bhaji 😋</p>
+            <p><strong>Your One of the Wish:</strong> 🌟 To Watch YJHD 🎥, Probably when it's re-released (TBH I have never watched this so no idea on the plot 🤷‍♂️)</p>
+            <p><strong>Favorite Color:</strong> 🤔</p>
+            <p><strong>Favorite Animal:</strong> 🐾 Dur se he aache lagte hai 😅</p>
+            <p><strong>Favorite Movie:</strong> Not Sure, But you Like AVATAR 🌌 too</p>
+            <p><strong>Favorite Genres:</strong> 🎬 K-Dramas 💖</p>
+            <p><strong>Cooking:</strong> 👩‍🍳 You know some, you're learning some 🥘</p>
+            <p><strong>Dream:</strong> ✨ To Live your Own Life 🌍</p>
+            <p><strong>Your Goal:</strong> 🚀 To Get a Good appraisal this time 🎯</p>
+            <p><strong>Friends:</strong> Many</p>
+            <p><strong>Best Friends:</strong> 🤝 Few</p>
+            <p><strong>Good Male Best Friends:</strong> 🤔 Few (Maybe 2, IDK my existence here so haven't counted 🤷‍)</p>
+            <p><strong>Favorite Sport:</strong> 🏀 🤔</p>
+            <p><strong>Favorite Book:</strong> 📚 🤔</p>
+            <p><strong>Morning Routine:</strong> ☀️ Trying to wake up early, But Always Late 😴</p>
+            <p><strong>Evening Routine:</strong> 🌅 Unwinding with a show in weekends probably 📺📖</p>
+            <p><strong>Your Life Motto:</strong> 🌟 "YOLO"</p>
+            <p><strong>Your Biggest Achievement:</strong> 🏆 Balancing work and self time 💪</p>
+            <p><strong>Most Memorable Day:</strong> 🎉 Yet to come, but there have been amazing ones ✨</p>
         </div>
     </div>
 
@@ -124,7 +133,7 @@
             setTimeout(() => {
                 statsContent.style.transition = "transform 30s linear"; // Re-enable smooth scrolling
                 startScrolling(); // Restart scrolling
-            }, 50); // Small delay to allow resetting
+            }, 0); // Small delay to allow resetting
         }
 
         // Add an event listener to detect when the animation ends
@@ -132,9 +141,10 @@
 
         // Start the scrolling animation
         setTimeout(() => {
-            statsContent.style.transform = "translateY(100%)"; // Ensure it starts at the bottom
-            setTimeout(startScrolling, 500); // Delay of 0.5 seconds for smooth initial start
-        }, 0); // Ensure initial placement at the bottom
+        statsContent.style.transform = "translateY(100%)"; // Ensure it starts at the bottom
+        setTimeout(startScrolling, 0); // Immediate start
+    }, 0); // Ensure initial placement at the bottom
+
     </script>
 
 </body>
