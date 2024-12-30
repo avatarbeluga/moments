@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="2;url=https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view">
+    <meta http-equiv="refresh" content="10;url=https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view">
     <title>Redirecting...</title>
 
     <!-- Google tag (gtag.js) -->
@@ -41,18 +41,28 @@
             font-weight: bold;
             color: #007BFF;
         }
+        .hint {
+            margin-top: 10px;
+            font-size: 16px;
+            color: red;
+            font-style: bold;
+        }
     </style>
 </head>
 <body>
     <div class="message">
         <h1>Redirecting...</h1>
-        <p>You will be redirected to the document in <span class="countdown">2</span> seconds.</p>
-        <p>If the redirection does not happen, <a href="https://drive.google.com/file/d/1ra5SVTtMzqDH7ifYrqhbkArEfLQ6OBVg/view">click here</a>.</p>
+        <p>You will be redirected to the document in <span class="countdown">10</span> seconds.</p>
+        <p>If the redirection does not happen, <a href="https://drive.google.com/file/d/1TagqCjvhdnEw0MoHiMhBlFVoVFW4GmZV/view?usp=sharing">click here</a>.</p>
+       <p class="hint" style="color: red;">Access Hint: The document's password is the first 4 digits of yours phone number followed by the last 4 digits of Mine.</p>
+        <p class="note" style="color: #333; margin-top: 10px;">
+            Note: Select "Open with G-Drive" or while entering the password, simply press "Enter."
+        </p>
     </div>
 
     <script>
         // Countdown logic
-        let countdown = 2;
+        let countdown = 10;
         const countdownElement = document.querySelector('.countdown');
 
         const interval = setInterval(() => {
