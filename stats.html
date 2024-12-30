@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smooth Scrolling Stats</title>
+    <style>
+        /* Overall body styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Professional gradient background */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Hide scrollbars */
+        }
+
+        /* Title styling */
+        .title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff; /* White for contrast */
+            margin: 20px 0;
+        }
+
+        /* Stats container */
+        .stats-container {
+            width: 100%;
+            max-width: 450px;
+            height: 80vh; /* 80% of the viewport height */
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Soft shadow for modern feel */
+        }
+
+        /* Scrolling stats content */
+        .stats-content {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            bottom: 0; /* Ensure content starts at the bottom of the container */
+            transform: translateY(100%); /* Start hidden below the container */
+            transition: transform 30s linear; /* Smooth scrolling */
+        }
+
+        /* Individual stats styling */
+        .stats-container p {
+            margin: 0;
+            padding: 15px 20px;
+            font-size: 20px;
+            color: #333; /* Dark text for readability */
+            font-weight: 600;
+            border-bottom: 1px solid #ddd; /* Subtle divider between items */
+            text-align: center;
+        }
+
+        /* Media Query for Mobile Screens */
+        @media (max-width: 768px) {
+            .stats-container {
+                height: 80vh; /* 80% height on mobile */
+            }
+
+            .stats-container p {
+                font-size: 18px;
+                padding: 10px 15px;
+            }
+
+            .title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title">Your STATS</div>
+
+    <div class="stats-container" id="statsContainer">
+        <div class="stats-content" id="statsContent">
+            <p>Favorite Food: Pasta,Pav Bhaji...</p>
+            <p>Your One of the Wish: To Watch YJHD Probaly when it's re-released(TBH i have never watched this so no idea on the plot)</p>
+            <p>Favorite Color:🤔 </p>
+            <p>Favorite Animal: Dur se he aache lagte hai</p>
+            <p>Favorite Movie: Not Sure, But you Like AVATAR too</p>
+            <p>Cooking: You know some, you're learning some</p>
+            <p>Dream: To Live your Own Live</p>
+            <p>Your Goal: To Get a Good appraisal this time </p>
+            <p>Friends: Many</p>
+            <p>Best Friends: Few</p>
+            <p>Good Male Best Friends: Few (May be 2 IDK my existance here so haven't counted)</p>
+            <p>Favorite Sport: 🤔</p>
+            <p>Favorite Book: 🤔</p>
+
+        </div>
+    </div>
+
+    <script>
+        const statsContent = document.getElementById("statsContent");
+
+        // Function to start the scrolling animation
+        function startScrolling() {
+            statsContent.style.transform = "translateY(-100%)"; // Scroll upwards
+        }
+
+        // Function to loop the scroll
+        function resetAndScroll() {
+            statsContent.style.transition = "none"; // Temporarily disable transition
+            statsContent.style.transform = "translateY(100%)"; // Reset position to start at the bottom
+            setTimeout(() => {
+                statsContent.style.transition = "transform 30s linear"; // Re-enable smooth scrolling
+                startScrolling(); // Restart scrolling
+            }, 50); // Small delay to allow resetting
+        }
+
+        // Add an event listener to detect when the animation ends
+        statsContent.addEventListener("transitionend", resetAndScroll);
+
+        // Start the scrolling animation
+        setTimeout(() => {
+            statsContent.style.transform = "translateY(100%)"; // Ensure it starts at the bottom
+            setTimeout(startScrolling, 500); // Delay of 0.5 seconds for smooth initial start
+        }, 0); // Ensure initial placement at the bottom
+    </script>
+
+</body>
+</html>

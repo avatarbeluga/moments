@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Preferences</title>
+    <style>
+        /* Reset some default styles for better appearance */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: linear-gradient(135deg, #9b59b6, #8e44ad);
+            animation: bgAnimation 6s ease-in-out infinite;
+        }
+
+        @keyframes bgAnimation {
+            0% { background-image: linear-gradient(135deg, #9b59b6, #8e44ad); }
+            50% { background-image: linear-gradient(135deg, #3498db, #2980b9); }
+            100% { background-image: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeIn 3s ease-out;
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 1em;
+            margin-bottom: 40px;
+            text-align: center;
+            animation: fadeIn 4s ease-out;
+        }
+
+        /* Container setup */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1200px;
+            padding: 20px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        /* Column setup */
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            max-width: 400px;
+            min-width: 250px;
+        }
+
+        /* Card styling */
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        iframe {
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        iframe:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Media query for responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Our Top Music Preferences</h1>
+    <p>Note: This won't work on office wifi if there are firewall restrictions, use mobile internet.</p>
+    <div class="container">
+        <div class="column">
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/7eYJ9NjhLPtCjyoJfWpfMr?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/6f3ANRNQ8nCiPZ6VqXqq93?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/4RCd3Gdtt3dNedof64hqRD?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/46GMY9DgpOd1uUjZI2jXLU?si=0uAxQUbXREu9wcayQTJpgw&context=spotify%3Asearch%3Asong" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/6GQK4G5o60E8YA18DGpAzv?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/6eO9LvEiMqh1CAsa6y3wXP?si=kZcxSSshS02Fo1RH2moCIQ" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/0TL0LFcwIBF5eX7arDIKxY?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/0eCajpR75pDW0r64U6hP2x?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/3hB9lDLyAClYVZivMMl20N?utm_source=generator" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/1ZiReD9pPTttQWwSoYqdyH?si=YVNqh0vKQ4eoAbqk7P61mQ" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/6qrifdo7QINdPQr80IelGi?si=-QhOw-yNSrOprLQaxfRr0w&context=spotify%3Asearch" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+            <div class="card">
+                <iframe src="https://open.spotify.com/embed/track/1d5lpW3gUyq537iuyrb9Lf?si=nO_2cWUBRbO5t_fLSWMqHQ&context=spotify%3Asearch%3Asamjo" 
+                        width="250" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
