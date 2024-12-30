@@ -115,35 +115,41 @@
             <p><strong>Your Life Motto:</strong> 🌟 "YOLO"</p>
             <p><strong>Your Biggest Achievement:</strong> 🏆 Balancing work and self time 💪</p>
             <p><strong>Most Memorable Day:</strong> 🎉 Yet to come, but there have been amazing ones ✨</p>
+            <hr style="color:red;">
+            <p><strong>More contents to be Added:</strong> </p>
+
+
         </div>
+
     </div>
-
+<p style="color: red;"><strong>The List Will Loop in next 10 Sec if you Missed Reading</strong> </p>
     <script>
-        const statsContent = document.getElementById("statsContent");
+     const statsContent = document.getElementById("statsContent");
 
-        // Function to start the scrolling animation
-        function startScrolling() {
-            statsContent.style.transform = "translateY(-100%)"; // Scroll upwards
-        }
+// Function to start the scrolling animation
+function startScrolling() {
+    statsContent.style.transform = "translateY(-100%)"; // Scroll upwards
+}
 
-        // Function to loop the scroll
-        function resetAndScroll() {
-            statsContent.style.transition = "none"; // Temporarily disable transition
-            statsContent.style.transform = "translateY(100%)"; // Reset position to start at the bottom
-            setTimeout(() => {
-                statsContent.style.transition = "transform 30s linear"; // Re-enable smooth scrolling
-                startScrolling(); // Restart scrolling
-            }, 0); // Small delay to allow resetting
-        }
+// Function to loop the scroll with 1 second delay after completion
+function resetAndScroll() {
+    statsContent.style.transition = "none"; // Temporarily disable transition
+    statsContent.style.transform = "translateY(100%)"; // Reset position to start at the bottom
 
-        // Add an event listener to detect when the animation ends
-        statsContent.addEventListener("transitionend", resetAndScroll);
+    setTimeout(() => {
+        statsContent.style.transition = "transform 30s linear"; // Re-enable smooth scrolling
+        startScrolling(); // Restart scrolling
+    }, 1000); // 1-second delay after reset
+}
 
-        // Start the scrolling animation
-        setTimeout(() => {
-        statsContent.style.transform = "translateY(100%)"; // Ensure it starts at the bottom
-        setTimeout(startScrolling, 0); // Immediate start
-    }, 0); // Ensure initial placement at the bottom
+// Add an event listener to detect when the animation ends
+statsContent.addEventListener("transitionend", resetAndScroll);
+
+// Start the scrolling animation
+setTimeout(() => {
+    statsContent.style.transform = "translateY(100%)"; // Ensure it starts at the bottom
+    setTimeout(startScrolling, 500); // Delay of 0.5 seconds for smooth initial start
+}, 0); // Ensure initial placement at the bottom
 
     </script>
 
