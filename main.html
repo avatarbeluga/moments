@@ -14,11 +14,70 @@
             box-sizing: border-box;
         }
 
+        /* Navbar styling */
+        nav {
+            background-color: White; /* Spotify green */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure it stays on top of other content */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        /* Navbar links with animated color change */
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 10px;
+            transition: color 0.3s;
+            animation: colorChange 3s infinite alternate; /* Add animation */
+        }
+
+        /* Add hover effect for better user experience */
+        nav ul li a:hover {
+            color: #F5F5F5;
+        }
+
+        /* Animation definition: Cycling through colors */
+        @keyframes colorChange {
+            0% {
+                color: #FF6347; /* Tomato red */
+            }
+            25% {
+                color: #FFD700; /* Gold */
+            }
+            50% {
+                color: #1E90FF; /* Dodger Blue */
+            }
+            75% {
+                color: #32CD32; /* Lime Green */
+            }
+            100% {
+                color: #FF69B4; /* Hot Pink */
+            }
+        }
+
         /* Modern and professional login page */
         body {
             font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(135deg, #0d1b2a, #2a3d4c); /* Dark blue gradient */
-            margin-top: 60px;
+            margin-top: 60px; /* Push content down to make space for navbar */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,6 +99,12 @@
             color: #333;
             margin-bottom: 20px;
             font-weight: 700;
+        }
+
+        .container p {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .input-group {
@@ -95,30 +160,69 @@
             margin-top: 10px;
         }
 
-        /* Hint text */
-        .hint {
-            font-size: 14px;
-            color: #555;
-            margin-top: 10px;
+        /* Flashing effect for countdown timer */
+        .flashing {
+            animation: flash 1s infinite;
         }
 
+        @keyframes flash {
+            0% {
+                opacity: 1;
+                color: red;
+            }
+            50% {
+                opacity: 0.5;
+                color: yellow;
+            }
+            100% {
+                opacity: 1;
+                color: red;
+            }
+        }
+
+        /* Media query for responsive navbar */
+        @media (max-width: 768px) {
+            /* Keep navbar items horizontal */
+            nav ul {
+                flex-direction: row;
+            }
+
+            /* Ensure container still looks good on mobile */
+            .container {
+                width: 90%;
+            }
+        }
+          #time-login {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="spotify.html">Our Spotify taste</a></li>
+            <li><a href="stats.html">Know "Your Self" Wrapped Version</a></li>
+            <li><a href="#">Coming Soon</a></li>
+        </ul>
+    </nav>
+<div id="time-login"></div>
+<br>
     <!-- Password protected content -->
     <div class="container">
-        <h1>Password Protected Access</h1>
-        <p>Please enter your password to Access the Main Webpage:</p>
-        <br>
+        <h1>Memories Awaits - Protected Access</h1>
+        <p>Please enter your password to get link of Memories:</p>
         <div class="input-group">
             <input type="password" id="password" placeholder="Enter password" />
-            <!-- Font Awesome eye icon for password visibility toggle -->
             <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
         </div>
         <br>
-        <!-- Password hint -->
-       <p class="hint">Hint: A pet name that I often used to call you 🐳</p>
+        <p>Hint: The Dress Color which you wore on our recent meet 🦢</p>
         <button onclick="checkPassword()">Submit</button>
         <div class="error" id="error-message"></div>
     </div>
@@ -126,9 +230,17 @@
     <!-- Import CryptoJS Library for SHA-256 Hashing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
+        let attempts = 0;
+        const maxAttempts = 3;
+        const lockoutTime = 10000; // Lockout time in milliseconds (10 seconds)
+        let countdownTimer;
+        let remainingTime = lockoutTime / 1000; // Convert to seconds
+
         // Correct password hash (replace this with the hash of your actual password)
-        const correctHash = "db4b593cedf2b826cdea6a7505750078dd2bdc44fd85bfa029904496c9ee4ad9"; 
-        const redirectURL = "index.html"; // Redirect to this page when password is correct
+        const correctHash = "018fa96a44715c90bf93be148069cb28dd45d398f2cc75aa1565311f6e55d174"; 
+
+        // Path to your local file (redirect.html)
+        const localFilePath = "redirect.html"; 
 
         function checkPassword() {
             const passwordField = document.getElementById("password");
@@ -144,11 +256,49 @@
 
             const enteredHash = CryptoJS.SHA256(enteredPassword).toString();
 
-            if (enteredHash === correctHash) {
-                window.location.href = redirectURL; // Redirect to index2.html
-            } else {
-                errorMessage.innerText = "Incorrect password. Please try again.";
+            if (attempts >= maxAttempts) {
+                errorMessage.innerText = `Too many attempts. Please wait ${remainingTime} seconds.`;
+                errorMessage.classList.add("flashing");
+                return;
             }
+
+            if (enteredHash === correctHash) {
+                window.location.href = localFilePath; // Redirect to local file (redirect.html)
+            } else {
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    errorMessage.innerText = `Too many incorrect attempts. Please wait ${remainingTime} seconds.`;
+                    startCountdown();
+                } else {
+                    const attemptsLeft = maxAttempts - attempts;
+                    errorMessage.innerText = `Incorrect password. You have ${attemptsLeft} attempt(s) left.`;
+                }
+            }
+        }
+
+        function startCountdown() {
+            document.getElementById("password").disabled = true;
+            document.querySelector("button").disabled = true;
+
+            countdownTimer = setInterval(function() {
+                remainingTime--;
+                document.getElementById("error-message").innerText = `Too many incorrect attempts. Please wait ${remainingTime} seconds.`;
+                document.getElementById("error-message").classList.add("flashing");
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdownTimer);
+                    resetAttempts();
+                }
+            }, 1000);
+        }
+
+        function resetAttempts() {
+            attempts = 0;
+            remainingTime = lockoutTime / 1000;
+            document.getElementById("error-message").innerText = "Please enter the correct password now.";
+            document.getElementById("error-message").classList.remove("flashing");
+            document.getElementById("password").disabled = false;
+            document.querySelector("button").disabled = false;
         }
 
         function togglePasswordVisibility() {
@@ -165,6 +315,41 @@
                 toggleIcon.classList.add('fa-eye');
             }
         }
+ // Set the target time (11:55 PM, Dec 31, 2024)
+const targetTime = new Date("2024-12-31T23:55:00");
+
+function updateTimer() {
+    const now = new Date();
+    const timeDifference = targetTime - now;  // Time difference in milliseconds
+
+    if (timeDifference > 0) {
+        // Countdown: Target time hasn't arrived yet
+        const hoursLeft = Math.floor(timeDifference / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // Display time left
+        const timeLoginDisplay = document.getElementById("time-login");
+        timeLoginDisplay.innerHTML = `Time Left: ${hoursLeft}h ${minutesLeft}m ${secondsLeft}s<br>(Deploying at 11:55 PM, Dec 31 2024)`;
+    } else {
+        // Elapsed time: Target time has passed
+        const elapsedTime = now - targetTime;  // Time passed in milliseconds
+
+        const hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+        const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+
+        // Display time since deployment
+        const timeLoginDisplay = document.getElementById("time-login");
+        timeLoginDisplay.innerHTML = `Active Since ${hours}h ${minutes}m ${seconds}s<br>(Deployed on 11:55 PM, Dec 31 2024)`;
+    }
+}
+
+// Update the timer every second
+setInterval(updateTimer, 1000);
+
+// Call the function immediately to show the initial state
+updateTimer();
     </script>
 </body>
 </html>
