@@ -17,8 +17,7 @@
         /* Modern and professional login page */
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            background: linear-gradient(135deg, #0d1b2a, #2a3d4c); /* Dark blue gradient */
-            margin-top: 60px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Updated background gradient */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,6 +32,7 @@
             border-radius: 15px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             width: 350px;
+            margin-top: -50px; /* Lift the container a little up */
         }
 
         .container h1 {
@@ -102,6 +102,34 @@
             margin-top: 10px;
         }
 
+        /* Shaking effect */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* Flashing effect for error message */
+        @keyframes flash {
+            0% { color: red; }
+            50% { color: white; }
+            100% { color: red; }
+        }
+
+        .flash {
+            animation: flash 1s infinite;
+        }
+
+        .input-error {
+            border: 2px solid red;
+        }
+
     </style>
 </head>
 <body>
@@ -128,7 +156,7 @@
     <script>
         // Correct password hash (replace this with the hash of your actual password)
         const correctHash = "db4b593cedf2b826cdea6a7505750078dd2bdc44fd85bfa029904496c9ee4ad9"; 
-        const redirectURL = "main.html"; // Redirect to this page when password is correct
+        const redirectURL = "index.html"; // Redirect to this page when password is correct
 
         function checkPassword() {
             const passwordField = document.getElementById("password");
@@ -145,9 +173,20 @@
             const enteredHash = CryptoJS.SHA256(enteredPassword).toString();
 
             if (enteredHash === correctHash) {
-                window.location.href = redirectURL; // Redirect to index2.html
+                window.location.href = redirectURL; // Redirect to index.html
             } else {
-                errorMessage.innerText = "Incorrect password. Please try again.";
+                // Shake the input field, show error message, and add red border to input field
+                passwordField.classList.add("shake");
+                passwordField.classList.add("input-error");
+                errorMessage.innerText = "You entered the wrong password. Please try again.";
+                errorMessage.classList.add("flash");
+
+                // Remove the shake and flash effect after animation completes
+                setTimeout(() => {
+                    passwordField.classList.remove("shake");
+                    passwordField.classList.remove("input-error");
+                    errorMessage.classList.remove("flash");
+                }, 1000); // 1 second for both shake and flash effects
             }
         }
 
