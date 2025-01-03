@@ -15,8 +15,8 @@
         }
 
         /* Navbar styling */
-        nav {
-            background-color: White; /* Spotify green */
+       nav {
+            background-color: black; /* Spotify green */
             color: white;
             padding: 15px 20px;
             text-align: center;
@@ -193,7 +193,7 @@
             }
         }
           #time-login {
-            font-size: 24px;
+            font-size: 15px;
             font-weight: bold;
             color: white;
 
@@ -206,9 +206,9 @@
     <!-- Navbar -->
     <nav>
         <ul>
-            <li><a href="spotify.html">Our Spotify taste</a></li>
-            <li><a href="stats.html">Know "Your Self" Wrapped Version</a></li>
-            <li><a href="#">Coming Soon</a></li>
+        <li><a href="spotify.html">👉 Our Spotify taste 🎧</a></li>
+            <li><a href="stats.html">Self Stats 🌻</a></li>
+            <li><a href="#">Coming Soon ⏳ 👈</a></li>
         </ul>
     </nav>
 <div id="time-login"></div>
@@ -341,7 +341,8 @@ function updateTimer() {
 
         // Display time since deployment
         const timeLoginDisplay = document.getElementById("time-login");
-        timeLoginDisplay.innerHTML = `Active Since ${hours}h ${minutes}m ${seconds}s<br>(Deployed on 11:55 PM, Dec 31 2024)`;
+        timeLoginDisplay.innerHTML = `Site Active Since ${hours}h ${minutes}m ${seconds}s
+        <br>(Deployment logs 11:55 PM, Dec 31 2024)`;
     }
 }
 
